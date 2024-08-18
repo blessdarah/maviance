@@ -1,0 +1,26 @@
+{
+    "name": "phptest/maviance",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Maviance\\PHPTest\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "user",
+            "email": "blessdarahuba@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "pestphp/pest": "^2.35"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "require": {
+        "monolog/monolog": "^3.7"
+    }
+}
