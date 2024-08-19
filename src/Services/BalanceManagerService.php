@@ -24,7 +24,7 @@ class BalanceManagerService
         $this->logger = new Logger('app');
     }
 
-    public function refreshStore(string $accountId)
+    public function refresh(string $accountId)
     {
         try {
             $balance_amount = $this->client->getBalance($accountId);

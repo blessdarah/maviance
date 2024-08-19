@@ -6,5 +6,5 @@ namespace Maviance\PHPTest\Interfaces;
 
 interface ClientInterface
 {
-    public function getBalance(string|int $accountId): float;
+    public function getBalance(string|int $accountId): float|string;
 }
