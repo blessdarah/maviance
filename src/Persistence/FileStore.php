@@ -12,19 +12,19 @@ class FileStore implements StoreInterface
 {
     private string $file_path;
 
-    public function __construct(string $fileName)
+    public function __construct()
     {
-        $this->file_path = __DIR__ . '/../Storage/' . $fileName;
+        $this->file_path = __DIR__ . '/../Storage/';
     }
 
-    public function getFilePath()
+    public function getFilePath(): string
     {
         return $this->file_path;
     }
 
     public function save(Balance $balance): bool
     {
-        $response = file_put_contents($this->file_path, json_encode($balance));
+        $response = file_put_contents($this->file_path . $balance->getAccountId() . '.json', json_encode($balance->toArray()));
         if ($response === false) {
             throw new FileCouldNotBeWrittenException('File could not be written to');
         }
@@ -34,8 +34,13 @@ class FileStore implements StoreInterface
 
     public function getBalance(string|int $accountId): float
     {
-        $data = json_decode(file_get_contents($this->file_path), true);
+        $store_path = $this->file_path . "$accountId.json";
+        $file_result = file_get_contents($store_path);
+        if (!file_exists($store_path)) {
+            throw new \Exception('File does not exist');
+        }
+        $balance = json_decode($file_result);
 
-        return $data ?? 0;
+        return $balance->amount ?? 0;
     }
 }
